@@ -55,24 +55,17 @@ export default function HomeScreen() {
         >
           <View style={styles.pageWrapper}>
             <ThemedView type="backgroundElement" style={styles.topHeader}>
-              <ThemedText type="smallBold" style={styles.topHeaderTitle}>
+              <View style={styles.topHeaderBadge}>
+                <ThemedText type="smallBold" style={styles.topHeaderBadgeText}>
+                  Quran Kareem
+                </ThemedText>
+              </View>
+              <ThemedText type="title" style={styles.topHeaderTitle}>
                 القرآن الكريم
               </ThemedText>
               <ThemedText type="small" style={styles.topHeaderSubtitle}>
-                Quran Kareem · Offline Quran · Urdu + English
+                Offline Quran — Urdu + English translations
               </ThemedText>
-            </ThemedView>
-
-            <ThemedView style={styles.heroSection}>
-              <AnimatedIcon />
-              <ThemedView type="backgroundElement" style={styles.heroCard}>
-                <ThemedText type="title" style={styles.heroTitle}>
-                  Explore Surahs
-                </ThemedText>
-                <ThemedText type="small" style={{ marginTop: 8 }}>
-                  Tap any surah to open it instantly.
-                </ThemedText>
-              </ThemedView>
             </ThemedView>
 
             <View style={styles.grid}>
@@ -116,26 +109,47 @@ const styles = StyleSheet.create({
   },
   topHeader: {
     width: "100%",
-    borderRadius: 24,
-    paddingTop: Spacing.four,
-    paddingBottom: Spacing.three,
+    borderRadius: 32,
+    paddingTop: Spacing.five,
+    paddingBottom: Spacing.four,
     paddingHorizontal: Spacing.four,
     backgroundColor: "rgba(255,255,255,0.14)",
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.18)",
+    borderColor: "rgba(255,255,255,0.22)",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.16,
-    shadowRadius: 24,
-    elevation: 4,
+    shadowColor: "#0b173f",
+    shadowOpacity: 0.28,
+    shadowRadius: 32,
+    shadowOffset: { width: 0, height: 12 },
+    elevation: 10,
+    overflow: "hidden",
+  },
+  topHeaderBadge: {
+    backgroundColor: "rgba(255,255,255,0.18)",
+    paddingVertical: Spacing.one,
+    paddingHorizontal: Spacing.four,
+    borderRadius: 999,
+    marginBottom: Spacing.three,
+  },
+  topHeaderBadgeText: {
+    color: "#F8FAFF",
+    fontSize: 12,
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
   },
   topHeaderTitle: {
-    color: "#fff",
+    color: "#FFFFFF",
     marginBottom: Spacing.one,
+    fontSize: 42,
+    letterSpacing: 0.8,
   },
   topHeaderSubtitle: {
-    color: "#DDE6FF",
+    color: "#E4ECFF",
+    textAlign: "center",
+    paddingHorizontal: Spacing.three,
+    fontSize: 15,
+    lineHeight: 22,
   },
   heroSection: {
     alignItems: "center",

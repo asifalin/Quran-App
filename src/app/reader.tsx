@@ -4,6 +4,7 @@ import { Spacing } from "@/constants/theme";
 import { Audio } from "expo-av";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
+import { useFonts } from "expo-font";
 import { ImageBackground, Platform, Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 
 type Ayah = {
@@ -42,6 +43,14 @@ export default function ReaderScreen() {
   const { width: windowWidth } = useWindowDimensions();
   const pageWidth = Math.min(windowWidth - Spacing.four * 2, 980);
   const isWeb = Platform.OS === "web";
+
+  const [fontsLoaded] = useFonts({
+    "Gulzar-Regular": require("@/assets/fonts/Al Mushaf Arabic Font/Al-Mushaf-Quran.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   useEffect(() => {
     let mounted = true;
@@ -211,17 +220,53 @@ export default function ReaderScreen() {
 
             {surah.ayahs.map((a) => (
               <ThemedView key={a.number} style={styles.verseCard}>
-                <View style={{ flexDirection: "row", alignItems: "center" ,gap: Spacing.two, }}>
-              
-                <View style={[styles.ayahHeader , { border: "2px solid #ccc", display: "inline-block", padding: Spacing.two, borderRadius:100}]}>
-                  <ThemedText type="small" style={[styles.ayahNumber,{ color: "#FFFFFF" }]}>
-                     {a.number}
-                  </ThemedText>
-                </View>
-                  <ThemedText type="arabic" style={[styles.arabicText, {   letterSpacing: 5, writingDirection: "rtl", lineHeight: 100, fontSize: 36 }]}> 
-                  {a.text}
-                </ThemedText>
-                </View>
+                
+                <View
+  style={{
+    flexDirection: "row-reverse",
+    flexWrap: "wrap",
+    alignItems: "center" 
+  }}
+>
+  <ThemedText
+    style={{
+      fontFamily: "AlMajeed",
+      fontSize: 30,
+      color: "#FFFFFF",
+      textAlign: "right",
+      writingDirection: "rtl",
+      flexShrink: 1,
+      lineHeight: 60,
+      display: "block",
+    }}
+  >
+    {a.text}
+  </ThemedText>
+
+  <View
+    style={{
+      marginRight: 8,
+      borderWidth: 1,
+      borderColor: "#ccc",
+      borderRadius: 100,
+      width: 32,
+      height: 32,
+      justifyContent: "center",
+      alignItems: "center",
+      // display: "block",
+    }}
+  >
+    <ThemedText
+      style={{
+        color: "#FFFFFF",
+        fontSize: 14,
+        display: "block",
+      }}
+    >
+      {a.number}
+    </ThemedText>
+  </View>
+</View>
 
                 {a.translation ? (
                   <ThemedText type="small" style={[styles.translationText, { marginTop: Spacing.two, color: "#fdbbbb",fontSize: 20, lineHeight: 24 }]}> 
@@ -326,9 +371,14 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   ayahHeader: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginBottom: Spacing.one,
+    width: 44,
+    height: 44,
+    borderWidth: 2,
+    borderColor: "#ccc",
+    borderRadius: 22,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: Spacing.two,
   },
   ayahNumber: {
     opacity: 0.7,
@@ -342,6 +392,8 @@ const styles = StyleSheet.create({
   },
   arabicText: {
     color: "#FFFFFF",
+    fontFamily: "Gulzar-Regular",
+    lineHeight: 48,
   },
   headerText: {
     color: "#c9c1da",
